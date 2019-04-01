@@ -1,0 +1,30 @@
+model:
+    arch: unet
+data:
+    dataset: pascal_voc
+    train_split: train_aug
+    split: val
+    img_rows: 'same'
+    img_cols: 'same'
+training:
+    epoch: 300
+    batch_size: 6
+    report_freq: 10
+    n_workers: 2
+    multi_gpus: False
+    double_down_channel: True
+    grad_clip: 2
+    max_patience: 20
+    model_optimizer:
+        name: 'sgd'
+        lr: 1.0e-4
+        weight_decay: 1.0e-4
+    loss:
+        name: 'cross_entropy'
+        aux: False
+        aux_weight: 0.2
+    backbone:
+    lr_schedule:
+        name: 'poly_lr'
+        max_iter: 100
+    resume:

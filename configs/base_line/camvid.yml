@@ -1,0 +1,30 @@
+model:
+    arch: unet
+data:
+    dataset: camvid
+    train_split: train_aug
+    split: val
+    img_rows: 'same'
+    img_cols: 'same'
+training:
+    epoch: 700
+    batch_size: 2
+    report_freq: 20
+    n_workers: 2
+    multi_gpus: False
+    double_down_channel: True
+    grad_clip: 0
+    max_patience: 500
+    model_optimizer:
+        name: 'rmsprop'
+        lr: 1.0e-3
+        weight_decay: 1.0e-4
+    loss:
+        name: 'cross_entropy'
+        aux: False
+        aux_weight: 0.2
+    backbone:
+    lr_schedule:
+        name: 'exp_lr'
+        gamma: 0.995
+    resume:

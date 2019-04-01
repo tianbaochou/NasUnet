@@ -1,0 +1,30 @@
+model:
+    arch: unet
+data:
+    dataset: ultrasound_nerve
+    train_split: train_aug
+    split: val
+    img_rows: 'same'
+    img_cols: 'same'
+training:
+    epoch: 50
+    batch_size: 2
+    report_freq: 10
+    n_workers: 2
+    multi_gpus: False
+    double_down_channel: True
+    grad_clip: 3
+    max_patience: 10
+    model_optimizer:
+        name: 'adam'
+        lr: 3.0e-4
+        weight_decay: 1.0e-4
+    loss:
+        name: 'cross_entropy'
+        aux: False
+        aux_weight: 0.2
+    backbone:
+    lr_schedule:
+        name: 'cos'
+        T_max: 100
+    resume:

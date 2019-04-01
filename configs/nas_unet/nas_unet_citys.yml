@@ -1,0 +1,62 @@
+model:
+    arch: nas-unet
+data:
+    dataset: citys
+    train_split: train_aug
+    split: val
+    img_rows: 'same'
+    img_cols: 'same'
+searching:
+    init_channels: 16
+    depth: 4
+    epoch: 50
+    batch_size: 4
+    report_freq: 20
+    n_workers: 2
+    alpha_begin: 10
+    max_patience: 5
+    gpu: True
+    multi_gpus: False
+    sharing_normal: False
+    double_down_channel: True
+    meta_node_num: 2
+    grad_clip: 3
+    train_portion: 0.5
+    model_optimizer:
+        name: 'sgd'
+        lr: 0.05
+        momentum: 0.9
+        weight_decay: 3.0e-4
+    arch_optimizer:
+        name: 'adam'
+        lr: 3.0e-3
+        weight_decay: 1.0e-3
+    loss:
+        name: 'cross_entropy'
+        size_average: False
+    resume:
+training:
+    geno_type: NASUNET
+    init_channels: 16
+    depth: 5
+    epoch: 800
+    batch_size: 1
+    report_freq: 50
+    n_workers: 2
+    multi_gpus: False
+    double_down_channel: True
+    grad_clip: 3
+    max_patience: 100
+    model_optimizer:
+        name: 'sgd'
+        lr: 0.05
+        weight_decay: 1.0e-4
+    loss:
+        name: 'cross_entropy'
+        aux: False
+        aux_weight: 0.2
+    backbone:
+    lr_schedule:
+        name: 'poly_lr'
+        max_iter: 100
+    resume:
