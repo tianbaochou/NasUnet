@@ -20,7 +20,7 @@ from models import get_segmentation_model
 from util.challenge.promise12.metrics import biomedical_image_metric, numpy_dice
 from util.metrics import *
 from PIL import Image
-from models import geno_types
+from models import geno_searched
 from util.crf import dense_crf
 
 class TestNetwork(object):

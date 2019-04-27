@@ -101,10 +101,10 @@ class SearchNetwork(object):
 
         # Setup Model
         model = NasUnetSearch(self.in_channels, init_channel, self.n_classes, depth,
-                              self.criterion, meta_node_num=meta_node_num,
-                              use_sharing=self.cfg['searching']['sharing_normal'],
+                              meta_node_num=meta_node_num, use_sharing=self.cfg['searching']['sharing_normal'],
                               double_down_channel=self.cfg['searching']['double_down_channel'],
-                              use_gpu = True if self.device.type == 'cuda' else False, device=self.device)
+                              multi_gpus=self.cfg['searching']['multi_gpus'],
+                              device=self.device)
 
         if self.device.type == 'cuda':
             if torch.cuda.device_count() > 1 and self.cfg['searching']['multi_gpus']:
@@ -132,7 +132,7 @@ class SearchNetwork(object):
         optimizer_params2 = {k: v for k, v in self.cfg['searching']['arch_optimizer'].items()
                             if k != 'name'}
 
-        self.arch_optimizer = optimizer_cls2(self.model.arch_parameters(), **optimizer_params2)
+        self.arch_optimizer = optimizer_cls2(self.model.alphas(), **optimizer_params2)
 
         self.architect = Architecture(self.model, arch_optimizer=self.arch_optimizer,
                                       criterion=self.criterion)

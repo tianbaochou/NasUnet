@@ -1,32 +1,6 @@
 import torch.nn as nn
 from util.utils import *
 
-CellLinkDownPos = [
-    'avg_pool',
-    'max_pool',
-    'down_cweight',
-    'down_dil_conv',
-    'down_dep_conv',
-    'down_conv'
-]
-
-CellLinkUpPos = [
-    'up_cweight',
-    'up_dep_conv',
-    'up_conv',
-    'up_dil_conv'
-]
-
-CellPos = [
-    'identity',
-    'none',
-    'cweight',
-    'dil_conv',
-    'dep_conv',
-    'shuffle_conv',
-    'conv',
-]
-
 OPS = {
     'none': lambda c, stride, affine, dp: ZeroOp(c, c, stride=stride),
     'identity': lambda c, stride, affine, dp: IdentityOp(c, c, affine=affine),

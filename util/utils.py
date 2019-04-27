@@ -8,11 +8,10 @@ import torch.nn
 import numpy as np
 import cv2
 from collections import OrderedDict
-from collections import namedtuple
 from torchvision.utils import make_grid
 from util.encoder_colors import get_mask_pallete
 
-Genotype = namedtuple('Genotype', 'down down_concat up up_concat')
+
 
 def get_same_padding(kernel_size):
     if isinstance(kernel_size, tuple):
@@ -292,6 +291,13 @@ def one_hot_encoding(input, c):
     #    self[i][index[i][j][k][h]][k][h] = src[i][j][k][h]    # if dim == 1
     result.scatter_(1, input.unsqueeze(1), 1)
     return result
+
+from torch.nn.parallel._functions import Broadcast
+def broadcast_list(li, device_ids):
+    l_copies = Broadcast.apply(device_ids, *li) # default broadcast not right?
+    l_copies = [l_copies[i:i+len(li)]
+                for i in range(0, len(l_copies), len(li))]
+    return l_copies
 
 def weights_init(m):
     if isinstance(m, torch.nn.Conv2d):

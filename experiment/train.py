@@ -20,7 +20,7 @@ from util.optimizers import get_optimizer
 from util.challenge.promise12.store_test_seg import predict_test
 from util.metrics import *
 from models import get_segmentation_model
-import models.geno_types as geno_types
+import models.geno_searched as geno_types
 from tensorboardX import SummaryWriter
 
 class Network(object):

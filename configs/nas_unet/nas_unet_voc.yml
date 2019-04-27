@@ -8,18 +8,18 @@ data:
     img_cols: 'same'
 searching:
     init_channels: 16
-    depth: 3
-    epoch: 400
-    batch_size: 16
+    depth: 4
+    epoch: 300
+    batch_size: 30
     report_freq: 20
     n_workers: 2
     alpha_begin: 10
     max_patience: 40
     gpu: True
-    multi_gpus: False
-    sharing_normal: False
+    multi_gpus: True
+    sharing_normal: True
     double_down_channel: False
-    meta_node_num: 2
+    meta_node_num: 3
     grad_clip: 5
     train_portion: 0.5
     model_optimizer:

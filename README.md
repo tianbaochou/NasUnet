@@ -30,9 +30,16 @@ TODO:
 
 - [ ] Parallel compute no-topology related operation in DownSC and UpSC
 - [ ] Optimize multi objective by adding hardware metrics (delay), GPU cost and network parameters
-- [ ] Support multi gpus when update the architecture parameters
+- [x] Support multi gpus when update the architecture parameters (2019/04/28)
 - [ ] Extend search strategy for a flexible backbone network
 - [ ] Merge this work to CNASV ( Search-Train Prototype for Computer Vision [CNASV](https://github.com/tianbaochou/CNASV))
+
+**Noticing**
+
+>If you want to use multi-gpus during training phase.
+you need make sure the batch size can divide into gpus evenly.
+which (may be pytorch bug!). For example, if you have 3 gpus, and the 
+batch size need to be 3, 6, 9 ... 3*M.
 
 ## Usage
 
@@ -50,20 +57,20 @@ into environment path. Here ```$workdir$``` is the custom work directory. such a
 ```bash
 cd experiment
 # search on pascal voc2012
-python train.py --config ../configs/nasunet/nas_unet_voc.yml
+python train.py --config ../configs/nas_unet/nas_unet_voc.yml
 ```
 
 ### Evaluate the architecture on medical image datasets
 
 + train on promise12 dataset use nasunet
 ```bash
-python train.py --config ../configs/nasunet/nas_unet_promise12.yml --model nasunet
+python train.py --config ../configs/nas_unet/nas_unet_promise12.yml --model nasunet
 ```
 
 + if you want to fine tune model:
 
 ```bash
-python train.py --config ../configs/nasunet/nas_unet_promise12.yml --model nasunet --ft
+python train.py --config ../configs/nas_unet/nas_unet_promise12.yml --model nasunet --ft
 ```
 
 + use multi-gpus
@@ -100,6 +107,21 @@ The final architectures of DownSC and UpSC we searched on pascal voc 2012.
 
 ## Citation
 
+If you use this code in your research, please cite our paper.
+```
+@ARTICLE{8681706, 
+author={Y. {Weng} and T. {Zhou} and Y. {Li} and X. {Qiu}}, 
+journal={IEEE Access}, 
+title={NAS-Unet: Neural Architecture Search for Medical Image Segmentation}, 
+year={2019}, 
+volume={7}, 
+number={}, 
+pages={44247-44257}, 
+keywords={Computer architecture;Image segmentation;Magnetic resonance imaging;Medical diagnostic imaging;Task analysis;Microprocessors;Medical image segmentation;convolutional neural architecture search;deep learning}, 
+doi={10.1109/ACCESS.2019.2908991}, 
+ISSN={2169-3536}, 
+month={},}
+```
 
 
 

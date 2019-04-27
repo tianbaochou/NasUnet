@@ -4,7 +4,7 @@ import platform
 import time
 from util import visualize
 from util.utils import create_exp_dir
-import geno_types
+import geno_searched
 
 def main(format='svg'):
 
