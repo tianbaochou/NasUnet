@@ -55,7 +55,7 @@ you need make sure the batch size can divide into gpus evenly.
 which (may be pytorch bug!). For example, if you have 3 gpus, and the 
 batch size need to be ```3, 6, 9 ... 3xM```.
 
-+ **4.** When you meed CUDA OOM problems, the following tricks will help you:
++ **4.** When you meet CUDA OOM problems, the following tricks will help you:
     + A. set lower ```init_channels``` in configure file, such as ```16, 32, or 48```.
     + B. set lower ```batch_size``` such as ```2, 4, 6, 8```.
     + C. when you use a large image size, such as 480, 512, 720 et. al. the initial channels and batch size 
