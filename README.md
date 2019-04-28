@@ -48,9 +48,13 @@ pip3 install requirements.txt
 ```
 
 **Notice**
-> if you use win10, and want to show the cell architecture with graph, you 
+> 
++ If you use win10, and want to show the cell architecture with graph, you 
 need install the pygraphviz and add ```$workdir$\\3rd_tools\\graphviz-2.38\\bin```
 into environment path. Here ```$workdir$``` is the custom work directory. such as ```E:\\workspace\\NasUnet``` 
+
++ If you use win10, and you also need to add the bin path of ```nvidia-smi``` to you environment path.
+Because we will automatically choose the gpu device with max free gpu memory to run!.
 
 ### Search the architecture
 
