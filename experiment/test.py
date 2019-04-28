@@ -123,11 +123,10 @@ class TestNetwork(object):
             genotype = None
             init_channels = 0
             depth = 0
-
         model = get_segmentation_model(self.model_name,
                                        dataset = self.cfg['data']['dataset'],
                                        backbone=self.cfg['training']['backbone'],
-                                       aux = self.cfg['training']['loss']['aux'],
+                                       aux = False,
                                        c = init_channels,
                                        depth = depth,
                                        # the below two are special for nasunet

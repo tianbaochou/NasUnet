@@ -37,14 +37,14 @@ searching:
     resume:
 training:
     geno_type: NASUNET
-    init_channels: 64
-    depth: 6
+    init_channels: 48
+    depth: 5
     epoch: 800
-    batch_size: 1
+    batch_size: 8
     report_freq: 50
     n_workers: 2
     multi_gpus: False
-    double_down_channel: True
+    double_down_channel: False
     grad_clip: 3
     max_patience: 20
     model_optimizer:
@@ -53,7 +53,6 @@ training:
         weight_decay: 1.0e-4
     loss:
         name: 'cross_entropy'
-        aux: False
         aux_weight: 0.2
     backbone:
     lr_schedule:

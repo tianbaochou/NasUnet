@@ -34,12 +34,6 @@ TODO:
 - [ ] Extend search strategy for a flexible backbone network
 - [ ] Merge this work to CNASV ( Search-Train Prototype for Computer Vision [CNASV](https://github.com/tianbaochou/CNASV))
 
-**Noticing**
-
->If you want to use multi-gpus during training phase.
-you need make sure the batch size can divide into gpus evenly.
-which (may be pytorch bug!). For example, if you have 3 gpus, and the 
-batch size need to be 3, 6, 9 ... 3*M.
 
 ## Usage
 
@@ -47,14 +41,26 @@ batch size need to be 3, 6, 9 ... 3*M.
 pip3 install requirements.txt
 ```
 
-**Notice**
+**Noticing**
 > 
-+ If you use win10, and want to show the cell architecture with graph, you 
++ **1.** If you use win10, and want to show the cell architecture with graph, you 
 need install the pygraphviz and add ```$workdir$\\3rd_tools\\graphviz-2.38\\bin```
 into environment path. Here ```$workdir$``` is the custom work directory. such as ```E:\\workspace\\NasUnet``` 
 
-+ If you use win10, and you also need to add the bin path of ```nvidia-smi``` to you environment path.
++ **2.** If you use win10, and you also need to add the bin path of ```nvidia-smi``` to you environment path.
 Because we will automatically choose the gpu device with max free gpu memory to run!.
+
++ **3.** If you want to use multi-gpus during training phase.
+you need make sure the batch size can divide into gpus evenly.
+which (may be pytorch bug!). For example, if you have 3 gpus, and the 
+batch size need to be ```3, 6, 9 ... 3xM```.
+
++ **4.** When you meed CUDA OOM problems, the following tricks will help you:
+    + A. set lower ```init_channels``` in configure file, such as ```16, 32, or 48```.
+    + B. set lower ```batch_size``` such as ```2, 4, 6, 8```.
+    + C. when you use a large image size, such as 480, 512, 720 et. al. the initial channels and batch size 
+         may be much smaller.
+
 
 ### Search the architecture
 

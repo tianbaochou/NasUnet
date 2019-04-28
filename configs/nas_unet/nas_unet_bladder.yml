@@ -52,7 +52,6 @@ training:
         weight_decay: 1.0e-4
     loss:
         name: 'dice_loss'
-        aux: False
         aux_weight: 0.2
     backbone:
     lr_schedule:

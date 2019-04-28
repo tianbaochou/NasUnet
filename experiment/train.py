@@ -134,11 +134,14 @@ class Network(object):
             genotype = None
             init_channels = 0
             depth = 0
-
+        # aux_weight > 0 and the loss is cross_entropy, we will use FCN header for auxiliary layer. and the aux set to True
+        # aux_weight > 0 and the loss is cross_entropy_with_dice, we will combine cross entropy loss with dice loss
+        self.aux = True if self.cfg['training']['loss']['aux_weight'] > 0  \
+                    and self.cfg['training']['loss']['name'] != 'cross_entropy_with_dice' else False
         model = get_segmentation_model(self.model_name,
                                        dataset = self.cfg['data']['dataset'],
                                        backbone=self.cfg['training']['backbone'],
-                                       aux = self.cfg['training']['loss']['aux'],
+                                       aux = self.aux,
                                        c = init_channels,
                                        depth = depth,
                                        # the below two are special for nasunet
@@ -304,7 +307,7 @@ class Network(object):
             # so predicts[0] is original pred
             predicts = self.model(input)
 
-            train_loss = self.criterion(predicts[0], target)
+            train_loss = self.criterion(predicts if self.aux else predicts[0], target)
 
             self.train_loss_meter.update(train_loss.item())
 
@@ -347,7 +350,7 @@ class Network(object):
                 target = target.cuda(self.device)
                 predicts = self.model(input)
 
-                val_loss = self.criterion(predicts[0], target)
+                val_loss = self.criterion(predicts if self.aux else predicts[0], target)
 
                 self.val_loss_meter.update(val_loss.item())
 
@@ -425,7 +428,7 @@ class Network(object):
 
                 # for cityscapes, voc, camvid
                 if not isinstance(target, list):
-                    test_loss = self.criterion(predicts[0], target)
+                    test_loss = self.criterion(predicts if self.aux else predicts[0], target)
                     self.test_loss_meter.update(test_loss.item())
                     self.metric_test.update(target, predicts[0])
                 else: # for promise12

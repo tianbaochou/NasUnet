@@ -51,8 +51,7 @@ training:
         weight_decay: 5.0e-4
     loss:
         name: 'cross_entropy'
-        aux: False
-        aux_weight:
+        aux_weight: 0
     backbone:
     lr_schedule:
         name: 'cos'
