@@ -23,7 +23,7 @@ searching:
     grad_clip: 5
     train_portion: 0.5
     model_optimizer:
-        name: 'sgd'
+        name: 'adabound'
         lr: 1.0e-3
         weight_decay: 5.0e-4
     arch_optimizer:
