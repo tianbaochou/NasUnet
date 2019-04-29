@@ -96,8 +96,8 @@ class SearchNetwork(object):
         meta_node_num = self.cfg['searching']['meta_node_num']
 
         # Setup loss function
-        self.criterion = SegmentationLosses(name=self.cfg['training']['loss']['name']).to(self.device)
-        self.logger.info("Using loss {}".format(self.cfg['training']['loss']['name']))
+        self.criterion = SegmentationLosses(name=self.cfg['searching']['loss']['name']).to(self.device)
+        self.logger.info("Using loss {}".format(self.cfg['searching']['loss']['name']))
 
         # Setup Model
         model = NasUnetSearch(self.in_channels, init_channel, self.n_classes, depth,

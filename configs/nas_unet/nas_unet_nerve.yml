@@ -7,32 +7,33 @@ data:
     img_rows: 'same'
     img_cols: 'same'
 searching:
-    init_channels: 32
+    init_channels: 16
     depth: 4
-    epoch: 20
-    batch_size: 4
+    epoch: 300
+    batch_size: 9
     report_freq: 20
     n_workers: 2
+    alpha_begin: 10
+    max_patience: 40
     gpu: True
-    multi_gpus: False
+    multi_gpus: True
     sharing_normal: True
-    double_down_channel: True
-    meta_node_num: 4
-    grad_clip: 3
+    double_down_channel: False
+    meta_node_num: 3
+    grad_clip: 5
     train_portion: 0.5
     model_optimizer:
-        name: 'sgd'
-        lr: 0.025
-        momentum: 0.9
-        weight_decay: 3.0e-4
+        name: 'adabound'
+        lr: 1.0e-3
+        weight_decay: 5.0e-4
     arch_optimizer:
         name: 'adam'
         lr: 3.0e-4
-        weight_decay: 1.0e-3
+        weight_decay: 5.0e-3
     loss:
-        name: 'cross_entropy'
+        name: 'dice_loss'
         size_average: False
-    lr_schedule:
+        aux_weight:
     resume:
 training:
     geno_type: NAS_UNET_V3
