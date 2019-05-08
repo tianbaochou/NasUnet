@@ -103,7 +103,6 @@ class ADE20KSegmentation(BaseDataset):
     def pred_offset(self):
         return 1
 
-
 def _get_ade20k_pairs(folder, split='train'):
     def get_path_pairs(img_folder, mask_folder):
         img_paths = []

@@ -28,17 +28,6 @@ def make_dataset(root, dirname, type='CT', is_dup=False):
 
     return images_list
 
-
-class GrayscaleImage(object):
-
-    def __init__(self, image, width, height):
-        self.image = image
-        self.width = width
-        self.height = height
-
-    def __str__(self):
-        return '[%dx%d]' % (self.width, self.height)
-
 def histogram(image):
     hist = dict()
 
@@ -98,8 +87,10 @@ class CHAOS(BaseDataset):
         else ('CHAOS/MR_data_batch1/', 5, 256)
     IN_CHANNELS = 1
     CLASS_WEIGHTS = None
+    mean = [0.2389]
+    std = [0.2801]
     def __init__(self, root,  split='train', mode=None):
-        super(CHAOS, self).__init__(root, split, mode)
+        super(CHAOS, self).__init__(root, split, mode, norm = {'mu': self.mean, 'std': self.std})
         self.root = os.path.expanduser(root)
         self.joint_transform = None
         # The MR image is too challenge!

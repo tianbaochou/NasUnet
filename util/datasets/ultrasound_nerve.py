@@ -30,8 +30,10 @@ class UltraNerve(BaseDataset):
     IN_CHANNELS = 1
     CROP_SIZE = 256
     CLASS_WEIGHTS = None
+    mean = [0.3919]
+    std = [0.2212]
     def __init__(self, root,  split='train', mode=None, ft=False):
-        super(UltraNerve, self).__init__(root, split, mode)
+        super(UltraNerve, self).__init__(root, split, mode, norm = {'mu': self.mean, 'std': self.std})
         self.root = os.path.expanduser(root)
         self.ft = ft
         self.joint_transform = Compose([

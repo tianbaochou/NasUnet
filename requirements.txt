@@ -5,4 +5,11 @@ numpy
 pydicom
 SimpleITK
 Pillow
+PyYAML
+opencv-python
 pygraphviz
+graphviz
+scipy
+scikit-image
+adabound
+tensorboardX

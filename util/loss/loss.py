@@ -28,7 +28,7 @@ class SegmentationLosses(nn.CrossEntropyLoss):
         if self.name == 'dice_loss':
             return self._dice_loss2(*inputs) #self._dice_loss(*inputs)
         elif self.name == 'cross_entropy':
-            if self.aux_weight is None:
+            if self.aux_weight is 0 or self.aux_weight == None:
                 return super(SegmentationLosses, self).forward(*inputs)
             else:
                 pred1, pred2= inputs[0]

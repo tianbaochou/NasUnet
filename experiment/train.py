@@ -113,7 +113,7 @@ class Network(object):
 
         # Setup loss function
         criterion = SegmentationLosses(name=self.cfg['training']['loss']['name'],
-                                       aux_weight=self.cfg['training']['loss']['aux_weight'],
+                                       aux_weight = self.cfg['training']['loss']['aux_weight'],
                                        weight = self.nweight,
                                        ignore_index=-1 # ignore background
                                        )

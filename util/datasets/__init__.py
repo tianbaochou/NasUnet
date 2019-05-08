@@ -5,7 +5,6 @@ from .ade20k import ADE20KSegmentation
 from .pascal_voc import VOCSegmentation
 from .pascal_aug import VOCAugSegmentation
 from .pcontext import ContextSegmentation
-from .cityscapes import CitySegmentation
 from .minc import MINCDataset
 from .ultrasound_nerve import UltraNerve
 from .bladder import Bladder
@@ -44,6 +43,7 @@ acronyms = {
     'promise12': 'promise12',
     'camvid': 'camvid'
 }
+
 # dir = '/train_tiny_data/imgseg/'
 #=
 dir = '../../../training_data/imageSeg/'

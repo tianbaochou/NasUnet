@@ -36,7 +36,7 @@ searching:
         aux_weight:
     resume:
 training:
-    geno_type: NAS_UNET_V3
+    geno_type: NASUNET
     init_channels: 64
     depth: 6
     epoch: 800

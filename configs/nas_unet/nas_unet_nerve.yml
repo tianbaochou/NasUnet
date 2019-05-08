@@ -10,7 +10,7 @@ searching:
     init_channels: 16
     depth: 4
     epoch: 300
-    batch_size: 9
+    batch_size: 6
     report_freq: 20
     n_workers: 2
     alpha_begin: 10

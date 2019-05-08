@@ -21,9 +21,11 @@ class Bladder(BaseDataset):
     NUM_CLASS = 3
     IN_CHANNELS = 1
     CROP_SIZE = 512
+    mean = [0.1355]
+    std = [0.1348]
     CLASS_WEIGHTS = None
-    def __init__(self, root,  split='train', mode=None, **kwargs):
-        super(Bladder, self).__init__(root, split, mode, **kwargs)
+    def __init__(self, root,  split='train', mode=None):
+        super(Bladder, self).__init__(root, split, mode, norm = {'mu': self.mean, 'std': self.std})
         self.root = os.path.expanduser(root)
         self.joint_transform = None
         base_path = os.path.join(self.root, self.BASE_DIR)

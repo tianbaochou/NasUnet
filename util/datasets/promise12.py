@@ -363,6 +363,8 @@ class Promise12(BaseDataset):
             RandomElasticTransform(alpha = 1.5, sigma = 0.07, img_type='F'),
             ])
 
+        self.img_normalize = None
+
         # SECOND
         # store data in the npy file
         data_path = os.path.join(root, 'npy_image')
@@ -407,7 +409,8 @@ class Promise12(BaseDataset):
             img = self.img2tensor(img)
 
         # 4. normalize for img
-        img = self.img_normalize(img)
+        if self.img_normalize != None:
+            img = self.img_normalize(img)
 
         return img, target
 

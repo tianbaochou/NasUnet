@@ -54,7 +54,7 @@ training:
         weight_decay: 1.0e-4
     loss:
         name: 'dice_loss'
-        aux_weight: 0.2
+        aux_weight: 0
     backbone:
     lr_schedule:
         name: 'poly_lr'

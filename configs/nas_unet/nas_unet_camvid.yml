@@ -10,7 +10,7 @@ searching:
     init_channels: 16
     depth: 4
     epoch: 300
-    batch_size: 2
+    batch_size: 6
     report_freq: 20
     n_workers: 2
     alpha_begin: 10
@@ -49,7 +49,7 @@ training:
     max_patience: 80
     model_optimizer:
         name: 'adabound'
-        lr: 3.0e-2
+        lr: 1.0e-3
         weight_decay: 5.0e-4
     loss:
         name: 'cross_entropy'

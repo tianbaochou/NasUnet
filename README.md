@@ -21,9 +21,16 @@ Imaging (MRI), Computed Tomography (CT), and ultrasound respectively.
 + pydicom (for chao dataset)
 + SimpleITK (for promise12 dataset)
 + Pillow
++ scipy
++ scikit-image
++ adabound
++ PyYAML
++ opencv-python
++ tensorboardX
 + matplotlib (optional)
 + pydensecrf (optional)
 + pygraphviz (optional)
++ graphviz (optional)
 
 
 TODO:
@@ -38,14 +45,20 @@ TODO:
 ## Usage
 
 ```bash
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 ```
 
 **Noticing**
 > 
-+ **1.** If you use win10, and want to show the cell architecture with graph, you 
++ **1.** Display Cell Architecture 
+    + If you use win10, and want to show the cell architecture with graph, you 
 need install the pygraphviz and add ```$workdir$\\3rd_tools\\graphviz-2.38\\bin```
 into environment path. Here ```$workdir$``` is the custom work directory. such as ```E:\\workspace\\NasUnet``` 
+    + If you use ubuntu, install graphviz by : `sudo apt-get install graphviz libgraphviz-dev pkg-config`
+    
+After that install `pygraphviz` : `pip install pygraphviz`
+
+
 
 + **2.** If you use win10, and you also need to add the bin path of ```nvidia-smi``` to you environment path.
 Because we will automatically choose the gpu device with max free gpu memory to run!.

@@ -20,8 +20,8 @@ training:
         lr: 3.0e-4
         weight_decay: 1.0e-4
     loss:
-        name: 'cross_entropy'
-        aux_weight: 0.2
+        name: 'dice_loss'
+        aux_weight: 0
     backbone:
     lr_schedule:
         name: 'cos'
