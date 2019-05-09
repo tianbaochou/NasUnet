@@ -42,7 +42,14 @@ TODO:
 - [ ] Merge this work to CNASV ( Search-Train Prototype for Computer Vision [CNASV](https://github.com/tianbaochou/CNASV))
 
 
-## Usage
+## Installation using Conda
+
+```bash
+conda env create -f environment.yml
+```
+
+
+## Installation using pip
 
 ```bash
 pip3 install -r requirements.txt
