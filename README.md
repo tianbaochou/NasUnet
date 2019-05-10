@@ -128,6 +128,15 @@ The final architectures of DownSC and UpSC we searched on pascal voc 2012.
 ![figure2](imgs/figure2.jpg)
 
 
+### Custom your dataset
+
++ Firstly, normalize the custom dataset. you need `mean` and `std` see `util/dataset/calc_mean_std`
+
++ Secondly, add `CustomDataset` in `util/dataset/CustomDataset.py`
+
++ Finally, edit `util/dataset/__init__.py`, add your CutomDataset dataset and replace the 
+`dir = '/train_tiny_data/imgseg/'` to `dir = '/your custom dataset root path/'`
+
 ## Citation
 
 If you use this code in your research, please cite our paper.

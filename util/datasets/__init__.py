@@ -18,7 +18,6 @@ datasets = {
     'pascal_voc': VOCSegmentation,
     'pascal_aug': VOCAugSegmentation,
     'pcontext': ContextSegmentation,
-    'citys': CitySegmentation,
     'minc': MINCDataset,
     'cifar10': CIFAR10,
     'ultrasound_nerve': UltraNerve,
@@ -44,9 +43,9 @@ acronyms = {
     'camvid': 'camvid'
 }
 
-# dir = '/train_tiny_data/imgseg/'
+dir = '/train_tiny_data/imgseg/'
 #=
-dir = '../../../training_data/imageSeg/'
+#dir = '../../../training_data/imageSeg/'
 
 def get_dataset(name, path=dir, **kwargs):
     return datasets[name.lower()](root = path, **kwargs)
