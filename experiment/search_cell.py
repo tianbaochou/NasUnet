@@ -57,6 +57,7 @@ class SearchNetwork(object):
 
     def _init_device(self):
         self.device = torch.device("cuda" if self.cfg['searching']['gpu'] else "cpu")
+        self.logger.info('seed is {}'.format(self.cfg.get('seed', 1337)))
         np.random.seed(self.cfg.get('seed', 1337))
         torch.manual_seed(self.cfg.get('seed', 1337))
         if self.cfg['searching']['gpu'] and torch.cuda.is_available() :

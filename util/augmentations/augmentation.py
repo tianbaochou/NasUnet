@@ -5,6 +5,9 @@ import torch
 import torchvision.transforms.functional as tf
 from PIL import Image, ImageOps
 import cv2
+import numpy as np
+import SimpleITK as sitk
+
 
 # zbabby(2019/2/21)
 # All of the augmentation for PIL image
@@ -29,6 +32,7 @@ class Compose(object):
 
         return img, mask
 
+
 class ToTensor(object):
     def __call__(self, img, mask):
         return tf.to_tensor(img), torch.from_numpy(np.array(mask)).long()
@@ -52,6 +56,8 @@ class AdjustSaturation(object):
         return tf.adjust_saturation(img,
                                     random.uniform(1 - self.saturation,
                                                    1 + self.saturation)), mask
+
+
 class AdjustHue(object):
     def __init__(self, hue):
         self.hue = hue
@@ -60,6 +66,7 @@ class AdjustHue(object):
         assert img.size == mask.size
         return tf.adjust_hue(img, random.uniform(-self.hue,
                                                  self.hue)), mask
+
 
 class AdjustBrightness(object):
     def __init__(self, bf):
@@ -70,6 +77,7 @@ class AdjustBrightness(object):
         return tf.adjust_brightness(img,
                                     random.uniform(1 - self.bf,
                                                    1 + self.bf)), mask
+
 
 class AdjustContrast(object):
     def __init__(self, cf):
@@ -119,6 +127,7 @@ class FreeScale(object):
             mask.resize(self.size, Image.NEAREST),
         )
 
+
 class RandomZoom(object):
     def __init__(self, size):
         self.size = tuple(reversed(size))  # size: (h, w)
@@ -126,7 +135,7 @@ class RandomZoom(object):
     def __call__(self, img, mask):
         assert img.size == mask.size
         if random.random() < 0.5:
-            new_size = (int(img.size[0]*self.size[0]), int(img.size[1]*self.size[1]))
+            new_size = (int(img.size[0] * self.size[0]), int(img.size[1] * self.size[1]))
             return (
                 img.resize(new_size, Image.BILINEAR),
                 mask.resize(new_size, Image.NEAREST),
@@ -140,8 +149,8 @@ class RandomTranslate(object):
 
     def __call__(self, img, mask):
         assert img.size == mask.size
-        x_offset = int((2 * (random.random() - 0.5) * self.offset[0])*img.size[0])
-        y_offset = int((2 * (random.random() - 0.5) * self.offset[1])*img.size[1])
+        x_offset = int((2 * (random.random() - 0.5) * self.offset[0]) * img.size[0])
+        y_offset = int((2 * (random.random() - 0.5) * self.offset[1]) * img.size[1])
 
         x_crop_offset = x_offset
         y_crop_offset = y_offset
@@ -179,9 +188,10 @@ class RandomTranslate(object):
                       shear=0.0,
                       fillcolor=0))
 
+
 class RandomRotate(object):
     def __init__(self, degree):
-        self.degree = degree #  -180 and 180
+        self.degree = degree  # -180 and 180
 
     def __call__(self, img, mask):
         rotate_degree = random.random() * 2 * self.degree - self.degree
@@ -200,6 +210,7 @@ class RandomRotate(object):
                       resample=Image.NEAREST,
                       fillcolor=0,
                       shear=0.0))
+
 
 class Scale(object):
     def __init__(self, size):
@@ -293,6 +304,7 @@ class RandomSizedCrop(object):
         crop = CenterCrop(self.size)
         return crop(*scale(img, mask))
 
+
 class CenterCrop(object):
     def __init__(self, size):
         if isinstance(size, numbers.Number):
@@ -310,6 +322,7 @@ class CenterCrop(object):
             img.crop((x1, y1, x1 + tw, y1 + th)),
             mask.crop((x1, y1, x1 + tw, y1 + th)),
         )
+
 
 class RandomSized(object):
     def __init__(self, size):
@@ -330,6 +343,7 @@ class RandomSized(object):
 
         return self.crop(*self.scale(img, mask))
 
+
 class Pad(object):
     """Pads the given PIL.Image on all sides with the given "pad" value"""
 
@@ -345,7 +359,7 @@ class Pad(object):
 
 
 class RandomElasticTransform(object):
-    def __init__(self, alpha = 3, sigma=0.07, img_type='L'):
+    def __init__(self, alpha=3, sigma=0.07, img_type='L'):
         self.alpha = alpha
         self.sigma = sigma
         self.img_type = img_type
@@ -356,15 +370,17 @@ class RandomElasticTransform(object):
         img = np.array(img)  # hxwxc
         mask = np.array(mask)
 
-        shape1=img.shape
+        shape1 = img.shape
 
-        alpha = self.alpha*shape1[0]
-        sigma = self.sigma*shape1[0]
+        alpha = self.alpha * shape1[0]
+        sigma = self.sigma * shape1[0]
 
         x, y = np.meshgrid(np.arange(shape1[0]), np.arange(shape1[1]), indexing='ij')
         blur_size = int(4 * sigma) | 1
-        dx = cv2.GaussianBlur((np.random.rand(shape1[0], shape1[1]) * 2 - 1), ksize=(blur_size, blur_size),sigmaX=sigma) * alpha
-        dy = cv2.GaussianBlur((np.random.rand(shape1[0], shape1[1]) * 2 - 1), ksize=(blur_size, blur_size), sigmaX=sigma) * alpha
+        dx = cv2.GaussianBlur((np.random.rand(shape1[0], shape1[1]) * 2 - 1), ksize=(blur_size, blur_size),
+                              sigmaX=sigma) * alpha
+        dy = cv2.GaussianBlur((np.random.rand(shape1[0], shape1[1]) * 2 - 1), ksize=(blur_size, blur_size),
+                              sigmaX=sigma) * alpha
 
         if (x is None) or (y is None):
             x, y = np.meshgrid(np.arange(shape1[0]), np.arange(shape1[1]), indexing='ij')
@@ -374,10 +390,12 @@ class RandomElasticTransform(object):
         # convert map
         map_x, map_y = cv2.convertMaps(map_x, map_y, cv2.CV_16SC2)
 
-        img = cv2.remap(img, map_y, map_x, interpolation=cv2.INTER_LINEAR, borderMode = cv2.BORDER_CONSTANT).reshape(shape1)
-        mask =  cv2.remap(mask, map_y, map_x, interpolation=cv2.INTER_NEAREST, borderMode = cv2.BORDER_CONSTANT).reshape(shape1)
+        img = cv2.remap(img, map_y, map_x, interpolation=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT).reshape(
+            shape1)
+        mask = cv2.remap(mask, map_y, map_x, interpolation=cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT).reshape(
+            shape1)
 
-        return (Image.fromarray(img,mode=self.img_type), Image.fromarray(mask, mode='L'))
+        return (Image.fromarray(img, mode=self.img_type), Image.fromarray(mask, mode='L'))
 
     def __call__(self, img, mask):
         """Elastic deformation of images as described in [Simard2003]_.
@@ -392,11 +410,6 @@ class RandomElasticTransform(object):
             return (img, mask)
 
 
-
-import cv2
-import numpy as np
-import SimpleITK as sitk
-
 def smooth_images(imgs, t_step=0.125, n_iter=5):
     """
     Curvature driven image denoising.
@@ -406,8 +419,8 @@ def smooth_images(imgs, t_step=0.125, n_iter=5):
     for mm in range(len(imgs)):
         img = sitk.GetImageFromArray(imgs[mm])
         img = sitk.CurvatureFlow(image1=img,
-                                        timeStep=t_step,
-                                        numberOfIterations=n_iter)
+                                 timeStep=t_step,
+                                 numberOfIterations=n_iter)
 
         imgs[mm] = sitk.GetArrayFromImage(img)
 

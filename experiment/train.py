@@ -71,6 +71,7 @@ class Network(object):
             self.logger.info('no gpu device available')
             sys.exit(1)
 
+        self.logger.info('seed is {}'.format(self.cfg.get('seed', 1337)))
         np.random.seed(self.cfg.get('seed', 1337))
         torch.manual_seed(self.cfg.get('seed', 1337))
         torch.cuda.manual_seed(self.cfg.get('seed', 1337))

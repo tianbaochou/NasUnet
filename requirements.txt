@@ -13,3 +13,4 @@ scipy
 scikit-image
 adabound
 tensorboardX
+requests

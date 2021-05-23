@@ -43,7 +43,7 @@ acronyms = {
     'camvid': 'camvid'
 }
 
-dir = '/train_tiny_data/imgseg/'
+dir = '../train_tiny_data/imgseg/'
 #=
 #dir = '../../../training_data/imageSeg/'
 
