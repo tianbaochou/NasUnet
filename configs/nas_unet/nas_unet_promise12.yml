@@ -47,7 +47,7 @@ training:
     multi_gpus: False
     double_down_channel: False
     grad_clip: 3
-    max_patience: 100
+    max_patience: 600
     model_optimizer:
         name: 'adam'
         lr: 1.0e-3
