@@ -38,10 +38,10 @@
 
 
 # Set the file for output (stdout)
-#SBATCH --output=NASUNET-DARTS-ARC-JOB-%j.out
+#SBATCH --output=UNET-DARTS-ARC-JOB-%j.out
 
 # Set the file for error log (stderr)
-#SBATCH --error=NASUNET-DARTS-ARC-JOB-%j.err
+#SBATCH --error=UNET-DARTS-ARC-JOB-%j.err
 
 
 # Use reserved node to run job when a node reservation is made for you already

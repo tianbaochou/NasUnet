@@ -36,10 +36,10 @@
 
 
 # Set the file for output (stdout)
-#SBATCH --output=MY-DARTS-EVA-JOB-%j.out
+#SBATCH --output=UNET-DARTS-EVA-JOB-%j.out
 
 # Set the file for error log (stderr)
-#SBATCH --error=MY-DARTS-EVA-JOB-%j.err
+#SBATCH --error=UNET-DARTS-EVA-JOB-%j.err
 
 
 # Use reserved node to run job when a node reservation is made for you already
