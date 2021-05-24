@@ -41,7 +41,7 @@ training:
     init_channels: 32
     depth: 5
     epoch: 200
-    batch_size: 6
+    batch_size: 32
     report_freq: 10
     n_workers: 2
     multi_gpus: False

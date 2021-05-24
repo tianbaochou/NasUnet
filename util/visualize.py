@@ -1,13 +1,14 @@
 from graphviz import Digraph
 
-def plot(genotype, filename, format='svg'):
+
+def plot(genotype, filename, format='pdf', directory="./cell_visualize"):
     g = Digraph(
         format=format,
-        graph_attr = dict(dpi='800'),
-        edge_attr = dict(fontsize='20'),
-        node_attr = dict(style='filled', shape='rect', align='center',
-                         fontsize='20', height='0.5', width='0.5',
-                         penwidth='2'),
+        graph_attr=dict(dpi='800'),
+        edge_attr=dict(fontsize='20'),
+        node_attr=dict(style='filled', shape='rect', align='center',
+                       fontsize='20', height='0.5', width='0.5',
+                       penwidth='2'),
         engine='dot'
     )
     g.body.extend(['randkdir=LR'])
@@ -21,14 +22,14 @@ def plot(genotype, filename, format='svg'):
         g.node(str(i), fillcolor='lightblue')
 
     for i in range(steps):
-        for k in [2*i, 2*i+1]:
+        for k in [2 * i, 2 * i + 1]:
             op, j = genotype[k]
             if j == 0:
                 u = 'c_{k-2}'
             elif j == 1:
                 u = 'c_{k-1}'
             else:
-                u = str(j-2)
+                u = str(j - 2)
             v = str(i)
             g.edge(u, v, label=op, fillcolor='gray')
 
@@ -36,7 +37,4 @@ def plot(genotype, filename, format='svg'):
     for i in range(steps):
         g.edge(str(i), 'c_{k}', fillcolor='gray')
 
-    g.render(filename, view=True)
-
-
-
+    g.render(filename=filename, directory=directory, view=True)
