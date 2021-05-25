@@ -447,7 +447,6 @@ class customDataset(data.Dataset):
             # pdb.set_trace()
             image = image.astype(np.float32)
             if self.transform is not None:
-                image.setflags(write=True)
                 image = torch.from_numpy(image)
                 # image = self.transform(image)
 
@@ -466,7 +465,6 @@ class customDataset(data.Dataset):
             # pdb.set_trace()
             image = image.astype(np.float32)
             if self.transform is not None:
-                image.setflags(write=True)
                 image = torch.from_numpy(image)
                 # image = self.transform(image)
 
