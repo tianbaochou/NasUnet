@@ -41,5 +41,5 @@ NAS_UNET_NEW_V1 = Genotype(down=[('down_dil_conv', 0), ('down_conv', 1), ('max_p
                            up=[('conv', 0), ('up_dil_conv', 1), ('conv', 2), ('up_cweight', 1)], up_concat=range(2, 4))
 
 
-NASUNET = Genotype(down=[('down_dil_conv', 1), ('down_conv', 0), ('down_dep_conv', 1), ('down_cweight', 0), ('dil_conv', 2), ('conv', 3)], down_concat=range(2, 5), up=[('up_conv', 1), ('shuffle_conv', 0), ('up_conv', 1), ('dep_conv', 0), ('dil_conv', 2), ('conv', 3)], up_concat=range(2, 5))
+NASUNET = NAS_UNET_V3
 

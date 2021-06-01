@@ -11,11 +11,8 @@ def main(format):
     if 'Windows' in platform.platform():
         os.environ['PATH'] += os.pathsep + '../3rd_tools/graphviz-2.38/bin/'
     try:
-        genotype = Genotype(
-            down=[('down_conv', 0), ('down_dep_conv', 1), ('dil_conv', 2), ('down_dil_conv', 0), ('down_cweight', 0),
-                  ('conv', 2)], down_concat=range(2, 5),
-            up=[('up_dep_conv', 1), ('dil_conv', 0), ('dil_conv', 2), ('dil_conv', 0), ('conv', 2), ('cweight', 0)],
-            up_concat=range(2, 5))
+        genotype = Genotype(down=[('down_dil_conv', 1), ('down_conv', 0), ('down_dep_conv', 1), ('down_cweight', 0), ('dil_conv', 3), ('dil_conv', 2)], down_concat=range(2, 5), up=[('up_conv', 1), ('shuffle_conv', 0), ('up_conv', 1), ('dep_conv', 0), ('dil_conv', 3), ('dil_conv', 2)], up_concat=range(2, 5))
+
     except AttributeError:
         print('{} is not specified in genotype.py'.format(genotype))
         sys.exit(1)

@@ -357,6 +357,11 @@ class Network(object):
 
                 self.metric_val.update(target, predicts[0])
 
+                # TODO
+                pixAcc, mIoU = self.metric_val.get()
+                self.logger.info('val loss: {}, pixAcc: {}, mIoU: {}'.format(
+                        self.val_loss_meter.mloss, pixAcc, mIoU))
+
                 # calc dice coeff
                 if self.show_dice_coeff:
                     dice_coeff = dice_coefficient(predicts[0], target)

@@ -32,7 +32,8 @@ searching:
         lr: 3.0e-4
         weight_decay: 5.0e-3
     loss:
-        name: 'dice_loss'
+#        name: 'dice_loss'
+        name: 'cross_entropy'
         size_average: False
         aux_weight:
     resume:
@@ -41,19 +42,20 @@ training:
     init_channels: 30
     depth: 5
     epoch: 600
-    batch_size: 32
+    batch_size: 30
     report_freq: 10
     n_workers: 2
     multi_gpus: False
     double_down_channel: False
     grad_clip: 3
-    max_patience: 600
+    max_patience: 100
     model_optimizer:
         name: 'adam'
         lr: 1.0e-3
         weight_decay: 5.0e-4
     loss:
-        name: 'dice_loss'
+#        name: 'dice_loss'
+        name: 'cross_entropy'
         aux_weight: 0
     backbone:
     lr_schedule:
